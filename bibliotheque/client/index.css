@@ -1,0 +1,269 @@
+/* =========================================
+   1. RESET & FOND IMMERSIF (Image Locale + Flou Blanc)
+   ========================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative; /* Indispensable pour les calques de fond */
+}
+
+/* 1. L'IMAGE DE FOND (LOCALE) AVEC FLOU */
+body::before {
+    content: "";
+    position: fixed; 
+    top: -10px; left: -10px; right: -10px; bottom: -10px; /* On déborde pour cacher les bords du flou */
+    z-index: -2; /* Tout au fond */
+
+    /* ICI : On utilise votre image locale (l'ancienne) */
+    /* Assurez-vous que l'image 'fond.jpg' existe bien dans admin/images/ */
+    background-image: url('../admin/images/fond.jpg'); 
+    background-size: cover;
+    background-position: center;
+
+    /* RÉGLAGE DU FLOU */
+    filter: blur(5px); /* Flou léger */
+}
+
+/* 2. LE VOILE BLANC (Pour l'effet "Flou Blanc") */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    
+    /* Couleur blanche avec transparence (0.4 = 40% opaque) */
+    background: rgba(255, 255, 255, 0.4); 
+    
+    z-index: -1; /* Juste au-dessus de l'image, sous le texte */
+}
+
+a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+ul { list-style: none; }
+
+/* ... La suite du fichier (Sections 2, 3, etc.) reste inchangée ... */   2. INTERACTIVITÉ GLOBALE (SURVOLS)
+   ========================================= */
+/* Effet "Levitation" sur tous les éléments interactifs */
+button, .cta-button, .btn-details, .btn-login, .btn-register, input, textarea {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Liens de navigation */
+.main-nav a { position: relative; font-weight: 700; color: #002244; }
+.main-nav a::after {
+    content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0;
+    background-color: #28a745; transition: width 0.3s;
+}
+.main-nav a:hover::after { width: 100%; }
+
+/* Boutons d'action */
+.cta-button:hover, button:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* =========================================
+/* ... (Le début du CSS reste inchangé) ... */
+
+/* =========================================
+   3. HEADER GLASSMORPHISM (CORRIGÉ)
+   ========================================= */
+header {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    padding: 0.8rem 5%; /* Légèrement réduit pour l'élégance */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 4px 30px rgba(0,0,0,0.05);
+}
+
+.brand h1 { 
+    font-size: 1.8rem; 
+    color: #002244; 
+    font-weight: 900; 
+    letter-spacing: -1px; 
+    margin: 0; /* Important pour l'alignement */
+}
+.brand span { color: #28a745; }
+
+/* NAVIGATION PROPRE ET SYMÉTRIQUE */
+.main-nav ul { 
+    display: flex; 
+    align-items: center; 
+    gap: 35px; [cite_start]/* Espace confortable entre les boutons [cite: 6] */
+    
+    /* SUPPRESSION DES DÉFAUTS DU NAVIGATEUR */
+    list-style: none !important; 
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* On s'assure que les li n'ajoutent pas de marge */
+.main-nav li {
+    margin: 0;
+    padding: 0;
+    display: flex; /* Centre le contenu du li */
+    align-items: center;
+}
+
+/* Correction spécifique pour le formulaire de recherche qui a souvent des marges */
+.main-nav form {
+    margin: 0;
+}
+
+/* STYLES DES BOUTONS (Ajustés pour être cohérents) */
+.btn-login { 
+    border: 2px solid #003366; 
+    padding: 8px 25px; /* Plus large pour l'esthétique */
+    border-radius: 50px; 
+    color: #003366 !important; 
+    font-weight: 600;
+}
+.btn-login:hover { 
+    background: #003366; 
+    color: white !important; 
+}
+
+.btn-register { 
+    background: #28a745; 
+    padding: 8px 25px; 
+    border-radius: 50px; 
+    color: white !important; 
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3); /* Ombre douce */
+}
+.btn-register:hover { 
+    background: #218838; 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4); 
+}
+
+.search-input {
+    padding: 10px 20px; 
+    border-radius: 50px; 
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.9); 
+    width: 220px;
+    transition: width 0.3s ease;
+}
+.search-input:focus { 
+    width: 280px; /* Animation fluide */
+    outline: none; 
+    border-color: #003366; 
+}
+
+/* ... (La suite du CSS reste inchangée) ... *//* =========================================
+   4. HERO & SECTIONS
+   ========================================= */
+.hero {
+    margin: 40px 5%;
+    padding: 60px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+.hero:hover { transform: translateY(-5px); box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+
+.hero h2 { font-size: 3rem; color: #002244; margin-bottom: 20px; line-height: 1.1; }
+.cta-button { background: #003366; color: white; padding: 15px 35px; border-radius: 50px; font-weight: bold; display: inline-block; font-size: 1.1rem; }
+
+.hero-image img {
+    max-width: 400px; border-radius: 20px;
+    box-shadow: 20px 20px 60px rgba(0,0,0,0.15);
+    transform: rotate(-3deg);
+    transition: 0.5s;
+}
+.hero:hover .hero-image img { transform: rotate(0) scale(1.05); }
+
+.section-title {
+    font-size: 2rem; color: #002244; margin: 60px 5% 30px;
+    display: flex; align-items: center; gap: 15px;
+}
+.section-title::before { content: ""; display: block; width: 8px; height: 40px; background: #28a745; border-radius: 4px; }
+
+/* =========================================
+   5. GRILLE DE CARTES (CARRÉS / TUILES)
+   ========================================= */
+.catalogue-grid {
+    display: grid;
+    /* Grille responsive : remplit automatiquement avec des colonnes de min 220px */
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 30px;
+    padding: 0 5% 60px;
+}
+
+.book-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.5);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Effet rebond */
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* L'EFFET DE SURVOL PRINCIPAL DES LIVRES */
+.book-card:hover {
+    transform: translateY(-15px); /* Monte vers le haut */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 10;
+}
+
+.book-cover-container {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.book-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* Zoom image au survol */
+.book-card:hover .book-cover { transform: scale(1.1); }
+
+.book-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.book-title { font-weight: 800; font-size: 1.1rem; margin-bottom: 5px; color: #002244; }
+.book-author { font-size: 0.9rem; color: #666; font-style: italic; margin-bottom: 15px; }
+
+.btn-details {
+    display: block; width: 100%; text-align: center;
+    padding: 10px; border-radius: 12px;
+    background: rgba(0, 51, 102, 0.1); color: #003366; font-weight: bold;
+}
+.btn-details:hover { background: #003366; color: white; }
+
+/* Badge "Nouveau" pour la section nouveauté */
+.badge-new {
+    position: absolute; top: 15px; right: 15px;
+    background: #ff4757; color: white; padding: 5px 12px;
+    border-radius: 20px; font-size: 0.8rem; font-weight: bold;
+    box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+}
+
+/* =========================================
+   6. RESPONSIVE
+   ========================================= */
+@media (max-width: 768px) {
+    .hero { flex-direction: column; padding: 30px; text-align: center; }
+    .hero-image img { margin-top: 30px; width: 80%; transform: rotate(0); }
+    .catalogue-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+    .book-cover-container { height: 220px; }
+}
