@@ -13,10 +13,8 @@ if (file_exists($project_root . '/admin/connexion.php')) {
 // Détection automatique du dossier racine du site Web
 $server_root = realpath($_SERVER['DOCUMENT_ROOT']);
 $web_path = str_replace('\\', '/', str_replace($server_root, '', $project_root));
-$base_url = $web_path . '/'; 
+$base_url = ($web_path === '') ? '/' : rtrim($web_path, '/') . '/';
 
-// Si jamais la détection échoue (cas rares de config serveur), on force un slash
-if ($base_url == '/') $base_url = '/bibliotheque/'; // Ajustez ici si nécessaire en dernier recours
 ?>
 <!DOCTYPE html>
 <html lang="fr">
