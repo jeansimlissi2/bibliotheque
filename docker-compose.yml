@@ -1,0 +1,30 @@
+compose:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: default
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: rFzwnPxDKQa9dbTjuhbGt94mqJwOaJ5erpUjU8pjqqoil58bjtdPb6Lq1XMYPino
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  app:
+    build: .
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: rFzwnPxDKQa9dbTjuhbGt94mqJwOaJ5erpUjU8pjqqoil58bjtdPb6Lq1XMYPino
+      MYSQL_DATABASE: default
+      MYSQL_PORT: 3306
+    ports:
+      - "80:80"
+    depends_on:
+      - mysql
+    volumes:
+      - ./admin/images:/var/www/html/admin/images
+
+volumes:
+  mysql_data:
