@@ -14,7 +14,6 @@ if (file_exists($project_root . '/admin/connexion.php')) {
 $server_root = realpath($_SERVER['DOCUMENT_ROOT']);
 $web_path = str_replace('\\', '/', str_replace($server_root, '', $project_root));
 $base_url = ($web_path === '') ? '/' : rtrim($web_path, '/') . '/';
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
